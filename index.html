@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>YT Strategy Expert v14 - Net Optimizer</title>
+    <title>YT Strategy Expert - Net Optimizer</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
 
@@ -13,13 +13,14 @@
         <header>
             <div class="header-content">
                 <h1>YT Revenue <span class="badge">ULTRA v14</span></h1>
-                <p>Algorithme v12 Calibré & Sync Stratégie</p>
+                <p class="subtitle">Algorithme v12 Calibré & Sync Stratégie</p>
             </div>
             <nav class="tabs">
                 <button class="tab-btn active" onclick="switchTab(event, 'calc')">Calculateur</button>
                 <button class="tab-btn" onclick="switchTab(event, 'strategy')">Stratégie</button>
                 <button class="tab-btn" onclick="switchTab(event, 'projections')">Projections</button>
                 <button class="tab-btn" onclick="switchTab(event, 'growth')">Croissance</button>
+                <button class="tab-btn" onclick="switchTab(event, 'fiscalite')">Fiscalité</button>
             </nav>
         </header>
 
@@ -139,46 +140,85 @@
                     </div>
                 </section>
             </div>
+
+            <!-- ONGLET 5 : FISCALITÉ -->
+            <div id="fiscalite" class="tab-content">
+                <section class="calc-section">
+                    <h2 class="section-title">⚖️ Optimisation Fiscale</h2>
+                    <div class="input-group full">
+                        <label>Mode de déclaration</label>
+                        <select id="fiscal-status" onchange="calculate()">
+                            <option value="none">Aucun (Particulier / Brut)</option>
+                            <option value="ae">Auto-Entrepreneur (Micro-BNC)</option>
+                            <option value="sasu">SASU (Impôt sur les sociétés)</option>
+                            <option value="eurl">EURL / SARL</option>
+                        </select>
+                    </div>
+
+                    <div id="acre-container" class="acre-box" style="display:none;">
+                        <div class="acre-info">
+                            <label>Bénéficiaire de l'ACRE</label>
+                            <p>Réduction de cotisations la 1ère année</p>
+                        </div>
+                        <button id="acre-toggle" class="toggle-btn" onclick="toggleAcre()">
+                            <div class="toggle-dot"></div>
+                        </button>
+                    </div>
+
+                    <div class="fiscal-summary">
+                        <h3 class="summary-title">Récapitulatif des Pertes (État)</h3>
+                        <div class="summary-row">
+                            <span>Chiffre d'Affaires Brut</span>
+                            <span id="summary-gross">0.00 €</span>
+                        </div>
+                        <div class="summary-row red">
+                            <span>Cotisations & Impôts</span>
+                            <span id="summary-tax">0.00 €</span>
+                        </div>
+                        <div class="summary-row total">
+                            <span>Revenu Net Réel</span>
+                            <span id="summary-net">0.00 €</span>
+                        </div>
+                    </div>
+                </section>
+            </div>
         </main>
 
         <footer class="results-area">
             <div class="footer-top">
-                <div class="score-container">
+                <div class="score-wrapper">
                     <div class="circular-progress">
-                        <svg width="70" height="70"><circle class="bg" cx="35" cy="35" r="30"></circle><circle class="progress" id="score-bar" cx="35" cy="35" r="30"></circle></svg>
+                        <svg width="70" height="70">
+                            <circle class="bg" cx="35" cy="35" r="30"></circle>
+                            <circle class="progress" id="score-bar" cx="35" cy="35" r="30"></circle>
+                        </svg>
                         <div id="score-circle">0</div>
                     </div>
-                    <span>SCORE</span>
+                    <div class="score-label">SCORE DE POTENTIEL</div>
                 </div>
                 <div class="coach-box"><p id="coach-tip">Prêt au calcul...</p></div>
             </div>
             
             <div class="money-box">
-                <div class="money-header">
-                    <div class="money-label">REVENU MENSUEL ESTIMÉ (BRUT)</div>
-                    <div class="tax-selector">
-                        <select id="tax-rate" onchange="calculate()">
-                            <option value="1.0">Aucun (Brut)</option>
-                            <option value="0.78">Auto-entrepreneur (22%)</option>
-                            <option value="0.70">Société (30%)</option>
-                            <option value="0.55">Société (45%)</option>
-                        </select>
-                    </div>
-                </div>
+                <div class="money-label">REVENU MENSUEL ESTIMÉ</div>
                 <div id="grand-total">0.00 €</div>
                 
-                <div id="net-area" class="net-container" style="display:none;">
-                    <div class="net-row">
-                        <span class="net-label">NET ESTIMÉ :</span>
-                        <span id="net-total" class="net-value">0.00 €</span>
+                <div id="net-area" class="net-display" style="display:none;">
+                    <div class="net-pill">
+                        <span class="pill-label">NET ESTIMÉ :</span>
+                        <span id="net-total" class="pill-value">0.00 €</span>
                     </div>
-                    <div class="racket-row">
-                        <span class="racket-label">RACKET DE L'ÉTAT :</span>
-                        <span id="racket-total" class="racket-value">-0.00 €</span>
+                    <div class="racket-pill">
+                        <span class="pill-label">RACKET DE L'ÉTAT :</span>
+                        <span id="racket-total" class="pill-value">-0.00 €</span>
                     </div>
                 </div>
 
-                <div class="extra-money">Annuel: <span id="res-year">0€</span> | RPM Moyen : <span id="res-rpm-avg">0€</span></div>
+                <div class="footer-stats">
+                    <span>Annuel: <strong id="res-year">0€</strong></span>
+                    <span class="divider">|</span>
+                    <span>RPM Moyen : <strong id="res-rpm-avg">0€</strong></span>
+                </div>
             </div>
         </footer>
     </div>
