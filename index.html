@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>YT Strategy Expert v14</title>
+    <title>YT Strategy Expert v14 - Net Optimizer</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
 </head>
@@ -34,7 +34,7 @@
                             <select id="niche" onchange="calculate()">
                                 <option value="18">🪙 Crypto / Trading (18€)</option>
                                 <option value="15">📊 Finance / Invest (15€)</option>
-                                <option value="12">💼 Business / Entrep. (12€)</option>
+                                <option value="12" selected>💼 Business / Entrep. (12€)</option>
                                 <option value="10">🏠 Immobilier (10€)</option>
                                 <option value="7">💻 Tech / Software (7€)</option>
                                 <option value="5">🏥 Santé / Bien-être (5€)</option>
@@ -111,7 +111,6 @@
                         </div>
                     </div>
                     <div id="goal-plan" class="coach-bubble"></div>
-                    <p class="strategy-hint">Note : Ce calcul est synchronisé avec le RPM de ta thématique.</p>
                 </section>
             </div>
 
@@ -136,10 +135,8 @@
                         <div class="input-group"><label>Actuel</label><input type="number" class="sub-history" value="10500" oninput="calculate()"></div>
                     </div>
                     <div class="graph-wrapper">
-                        <div id="graph-tooltip" class="graph-tooltip">Passez sur la courbe</div>
-                        <svg id="sub-graph" viewBox="0 0 400 150" onmousemove="handleGraphHover(event)"></svg>
+                        <svg id="sub-graph" viewBox="0 0 400 150"></svg>
                     </div>
-                    <div id="expo-factor-display" class="expo-badge">Exponentialité : 1.00</div>
                 </section>
             </div>
         </main>
@@ -155,9 +152,32 @@
                 </div>
                 <div class="coach-box"><p id="coach-tip">Prêt au calcul...</p></div>
             </div>
+            
             <div class="money-box">
+                <div class="money-header">
+                    <div class="money-label">REVENU MENSUEL ESTIMÉ (BRUT)</div>
+                    <div class="tax-selector">
+                        <select id="tax-rate" onchange="calculate()">
+                            <option value="1.0">Aucun (Brut)</option>
+                            <option value="0.78">Auto-entrepreneur (22%)</option>
+                            <option value="0.70">Société (30%)</option>
+                            <option value="0.55">Société (45%)</option>
+                        </select>
+                    </div>
+                </div>
                 <div id="grand-total">0.00 €</div>
-                <div class="money-label">REVENU MENSUEL ESTIMÉ</div>
+                
+                <div id="net-area" class="net-container" style="display:none;">
+                    <div class="net-row">
+                        <span class="net-label">NET ESTIMÉ :</span>
+                        <span id="net-total" class="net-value">0.00 €</span>
+                    </div>
+                    <div class="racket-row">
+                        <span class="racket-label">RACKET DE L'ÉTAT :</span>
+                        <span id="racket-total" class="racket-value">-0.00 €</span>
+                    </div>
+                </div>
+
                 <div class="extra-money">Annuel: <span id="res-year">0€</span> | RPM Moyen : <span id="res-rpm-avg">0€</span></div>
             </div>
         </footer>
