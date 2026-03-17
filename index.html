@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YT Strategy Expert v14</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div class="main-card">
+        <header>
+            <div class="header-content">
+                <h1>YT Revenue <span class="badge">ULTRA v14</span></h1>
+                <p>Algorithme v12 Calibré & Sync Stratégie</p>
+            </div>
+            <nav class="tabs">
+                <button class="tab-btn active" onclick="switchTab(event, 'calc')">Calculateur</button>
+                <button class="tab-btn" onclick="switchTab(event, 'strategy')">Stratégie</button>
+                <button class="tab-btn" onclick="switchTab(event, 'projections')">Projections</button>
+                <button class="tab-btn" onclick="switchTab(event, 'growth')">Croissance</button>
+            </nav>
+        </header>
+
+        <main>
+            <!-- ONGLET 1 : CALCULATEUR -->
+            <div id="calc" class="tab-content active">
+                <section class="calc-section">
+                    <h2 class="section-title">🎥 Vidéos Longues</h2>
+                    <div class="grid">
+                        <div class="input-group full">
+                            <label>Thématique (Niche)</label>
+                            <select id="niche" onchange="calculate()">
+                                <option value="18">🪙 Crypto / Trading (18€)</option>
+                                <option value="15">📊 Finance / Invest (15€)</option>
+                                <option value="12">💼 Business / Entrep. (12€)</option>
+                                <option value="10">🏠 Immobilier (10€)</option>
+                                <option value="7">💻 Tech / Software (7€)</option>
+                                <option value="5">🏥 Santé / Bien-être (5€)</option>
+                                <option value="4">💎 Luxe / Lifestyle (4€)</option>
+                                <option value="3">💪 Fitness (3€)</option>
+                                <option value="2.5">✈️ Voyage (2.50€)</option>
+                                <option value="1.5">🎮 Gaming (1.50€)</option>
+                                <option value="1.2">🎭 Humour (1.20€)</option>
+                                <option value="0.75">🎵 Musique (0.75€)</option>
+                                <option value="0.45">🧸 Enfants (0.45€)</option>
+                            </select>
+                        </div>
+                        <div class="input-group">
+                            <label>Vues Mensuelles</label>
+                            <input type="number" id="long-views" value="100000" oninput="calculate()">
+                        </div>
+                        <div class="input-group">
+                            <label>Région (Audience)</label>
+                            <select id="region" onchange="calculate()">
+                                <option value="1.5">Tier 1 (USA/Suisse)</option>
+                                <option value="1.0" selected>Tier 2 (France/Europe)</option>
+                                <option value="0.3">Tier 3 (Afrique/Inde)</option>
+                            </select>
+                        </div>
+                        <div class="input-group full">
+                            <label>Durée Moyenne : <strong id="duration-val" class="red-text">10 min</strong></label>
+                            <input type="range" id="duration-slider" min="1" max="60" value="10" oninput="calculate()">
+                        </div>
+                    </div>
+                </section>
+
+                <section class="calc-section shorts-bg">
+                    <h2 class="section-title">📱 YouTube Shorts</h2>
+                    <div class="grid">
+                        <div class="input-group">
+                            <label>Vues Shorts / mois</label>
+                            <input type="number" id="shorts-views" value="500000" oninput="calculate()">
+                        </div>
+                        <div class="input-group">
+                            <label>RPM Shorts (€)</label>
+                            <input type="number" id="shorts-rpm" value="0.06" step="0.01" oninput="calculate()">
+                        </div>
+                    </div>
+                </section>
+
+                <section class="calc-section">
+                    <div class="section-header-flex">
+                        <h2 class="section-title">👥 Audience par Âge</h2>
+                        <span id="age-total-badge" class="total-badge">Total: 100%</span>
+                    </div>
+                    <div class="age-grid">
+                        <div class="age-item"><label>13-17</label><input type="number" class="age-pct" data-weight="0.4" value="5" oninput="calculate()"></div>
+                        <div class="age-item"><label>18-24</label><input type="number" class="age-pct" data-weight="0.9" value="15" oninput="calculate()"></div>
+                        <div class="age-item"><label>25-44</label><input type="number" class="age-pct" data-weight="1.6" value="60" oninput="calculate()"></div>
+                        <div class="age-item"><label>45+</label><input type="number" class="age-pct" data-weight="1.2" value="20" oninput="calculate()"></div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- ONGLET 2 : STRATÉGIE -->
+            <div id="strategy" class="tab-content">
+                <section class="calc-section">
+                    <h2 class="section-title">🎯 Objectif de Revenu Mensuel</h2>
+                    <div class="input-group">
+                        <label>Revenu visé par mois (€)</label>
+                        <input type="number" id="goal-target" value="2000" oninput="calculate()">
+                    </div>
+                    <div class="input-group" style="margin-top:25px;">
+                        <label>Distribution des revenus :</label>
+                        <input type="range" id="ratio-slider" min="0" max="100" value="80" oninput="calculate()">
+                        <div class="ratio-labels">
+                            <span>Vidéos Longues</span>
+                            <span>Shorts</span>
+                        </div>
+                    </div>
+                    <div id="goal-plan" class="coach-bubble"></div>
+                    <p class="strategy-hint">Note : Ce calcul est synchronisé avec le RPM de ta thématique.</p>
+                </section>
+            </div>
+
+            <!-- ONGLET 3 : PROJECTIONS -->
+            <div id="projections" class="tab-content">
+                <section class="calc-section">
+                    <h2 class="section-title">📊 Projection Financière (6 mois)</h2>
+                    <label>Croissance des vues : <strong id="growth-val">10%</strong></label>
+                    <input type="range" id="growth-rate" min="0" max="100" value="10" oninput="calculate()">
+                    <div id="projection-results-container"></div>
+                </section>
+            </div>
+
+            <!-- ONGLET 4 : CROISSANCE -->
+            <div id="growth" class="tab-content">
+                <section class="calc-section">
+                    <h2 class="section-title">📈 Historique Abonnés</h2>
+                    <div class="grid">
+                        <div class="input-group"><label>M-3</label><input type="number" class="sub-history" value="8000" oninput="calculate()"></div>
+                        <div class="input-group"><label>M-2</label><input type="number" class="sub-history" value="8800" oninput="calculate()"></div>
+                        <div class="input-group"><label>M-1</label><input type="number" class="sub-history" value="9500" oninput="calculate()"></div>
+                        <div class="input-group"><label>Actuel</label><input type="number" class="sub-history" value="10500" oninput="calculate()"></div>
+                    </div>
+                    <div class="graph-wrapper">
+                        <div id="graph-tooltip" class="graph-tooltip">Passez sur la courbe</div>
+                        <svg id="sub-graph" viewBox="0 0 400 150" onmousemove="handleGraphHover(event)"></svg>
+                    </div>
+                    <div id="expo-factor-display" class="expo-badge">Exponentialité : 1.00</div>
+                </section>
+            </div>
+        </main>
+
+        <footer class="results-area">
+            <div class="footer-top">
+                <div class="score-container">
+                    <div class="circular-progress">
+                        <svg width="70" height="70"><circle class="bg" cx="35" cy="35" r="30"></circle><circle class="progress" id="score-bar" cx="35" cy="35" r="30"></circle></svg>
+                        <div id="score-circle">0</div>
+                    </div>
+                    <span>SCORE</span>
+                </div>
+                <div class="coach-box"><p id="coach-tip">Prêt au calcul...</p></div>
+            </div>
+            <div class="money-box">
+                <div id="grand-total">0.00 €</div>
+                <div class="money-label">REVENU MENSUEL ESTIMÉ</div>
+                <div class="extra-money">Annuel: <span id="res-year">0€</span> | RPM Moyen : <span id="res-rpm-avg">0€</span></div>
+            </div>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
