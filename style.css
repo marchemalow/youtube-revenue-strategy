@@ -88,7 +88,6 @@ input:focus, select:focus { border-color: var(--yt-red); }
 .coach-box { flex: 1; }
 #coach-tip { font-size: 0.75rem; color: rgba(255,255,255,0.7); line-height: 1.4; margin: 0; }
 
-/* Fiscalité Tab Specifics */
 .acre-box { display: flex; justify-content: space-between; align-items: center; background: #f8fafc; padding: 15px; border-radius: 16px; border: 1px solid #e2e8f0; margin-top: 15px; }
 .acre-info label { font-size: 0.75rem; font-weight: 700; display: block; }
 .acre-info p { font-size: 0.6rem; color: var(--slate-400); margin: 2px 0 0 0; font-style: italic; }
